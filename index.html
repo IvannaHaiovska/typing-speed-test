@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WPM Typing Test</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/d733855d1a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="top-bar">
+
+            <h1>Typing Speed Test</h1>
+
+            <div class="controls-row">
+                <div class="clock inline"><i class="fas fa-clock"></i></div>
+                <div class="select-wrapper">
+                    <label class="select-label">Time Mode</label>
+
+                    <select id="timeSelect">
+                        <option value="30">30 sec</option>
+                        <option value="60">1 min</option>
+                        <option value="120">2 min</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="timer-block">
+                <div id="timer">00:30</div>
+            </div>
+
+        </div>
+
+        <div class="progress">
+            <div id="progressBar"></div>
+        </div>
+
+        <div id="textDisplay"></div>
+
+        <div class="type-here-div">
+            <span class="type-here-anim">Start Typing</span>
+            <span class="triangle-down"></span>
+        </div>
+
+        <textarea id="input"></textarea>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">WPM</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="chars">0</div>
+                <div class="stat-label">Char</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="accuracy">0%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-value" id="errors">0</div>
+                <div class="stat-label">Errors</div>
+            </div>
+        </div>
+        <button id="resetBtn">Reset</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,375 @@
+body {
+    margin: 0;
+    font-family: system-ui, Arial;
+    background: #f5f7fb;
+    color: #111827;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.top-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    margin-bottom: 35px;
+}
+
+.top-bar h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 20px 0;
+    letter-spacing: 0.5px;
+}
+
+.controls-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.timer-block {
+    background: white;
+    padding: 12px 30px;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef0f4;
+}
+
+.clock i {
+    font-size: 3rem;
+    margin-top: 10px;
+    border: 8px solid #111827;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+}
+
+.select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.select-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+select {
+    appearance: none;
+    padding: 10px 40px 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+
+    font-weight: 500;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+select:hover {
+    border-color: #111827;
+}
+
+select:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(56, 58, 133, 0.2);
+}
+
+select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#timer {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 10px 0;
+    letter-spacing: 1px;
+    color: #111827;
+}
+
+.progress {
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    margin: 10px 0 20px;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #111827;
+    transition: width 0.2s linear;
+}
+
+#textDisplay {
+    font-size: 20px;
+    line-height: 1.8;
+
+    padding: 20px;
+    margin-top: 10px;
+
+    min-height: 120px;
+
+    background: white;
+    border-radius: 16px;
+
+    border: 1px solid #eef0f4;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+#textDisplay span.correct {
+    color: #16a34a;
+}
+
+#textDisplay span.incorrect {
+    color: #dc2626;
+}
+
+#textDisplay span.active {
+    background: rgba(99, 102, 241, 0.15);
+    border-radius: 4px;
+}
+
+.type-here-div {
+    position: relative;
+    text-align: left;
+    width: 100%;
+    margin: 20px auto;
+    animation: jump 1.4s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.type-here-anim {
+    background-color: #333333ca;
+    color: white;
+    padding: 6px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #555;
+    position: absolute;
+    bottom: -15px;
+    left: 45px;
+}
+
+.type-here-anim {
+      letter-spacing: 0px;
+}
+
+.type-here-hidden {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+textarea {
+    width: 100%;
+    display: block;
+    margin: 20px auto;
+    min-height: 150px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    outline: none;
+    background: white;
+    resize: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+textarea:hover {
+    border-color: #9ca3af;
+}
+
+textarea:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 4px rgba(56, 58, 133, 0.2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 10px;
+    text-align: center;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef0f4;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.stat-label {
+    font-size: 12px;
+    margin-top: 6px;
+    color: #6b7280;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+#resetBtn {
+    display: block;
+    margin: 35px auto 10px;
+
+    padding: 14px 26px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: white;
+
+    border-radius: 14px;
+    border: none;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+#resetBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+}
+
+#resetBtn:active {
+    transform: translateY(0);
+}
+
+/* Animations */
+@keyframes jump {
+    0% {
+        top: 5px;
+    }
+
+    50% {
+        top: -10px;
+    }
+
+    100% {
+        top: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .controls-row {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .select-wrapper {
+        flex: 1;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    .timer-block {
+        flex-shrink: 0;
+        padding: 10px 16px;
+    }
+
+    #timer {
+        font-size: 36px;
+    }
+
+    #textDisplay {
+        font-size: 16px;
+        padding: 14px;
+        line-height: 1.6;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 90px;
+        font-size: 14px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px 8px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    #resetBtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .top-bar h1 {
+        font-size: 22px;
+    }
+
+    #timer {
+        font-size: 28px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    #textDisplay {
+        font-size: 15px;
+    }
+}
