@@ -8,11 +8,16 @@ const texts = [
     "React is a popular JavaScript library for building user interfaces. It helps developers create reusable components and manage application state efficiently."
 ];
 
-let selectedText = "";
-let timeLeft = 60;
-let hasStarted = false;
+const WORD_LENGTH = 5;
+const GAME_STATE = {
+    IDLE: "idle",
+    RUNNING: "running",
+    FINISHED: "finished"
+};
+
+let timeLeft = 30;
 let timer = null;
-let isRunning = false;
+let gameState = GAME_STATE.IDLE;
 
 const textDisplay = document.getElementById("textDisplay");
 const input = document.getElementById("input");
@@ -28,11 +33,28 @@ const resetBtn = document.getElementById("resetBtn");
 const timeSelect = document.getElementById("timeSelect");
 const typeHere = document.querySelector(".type-here-div");
 
+const modal = document.getElementById("resultModal");
+const finalWpm = document.getElementById("finalWpm");
+const finalAccuracy = document.getElementById("finalAccuracy");
+const tryAgainBtn = document.getElementById("tryAgainBtn");
+
+function showResultModal() {
+    finalWpm.textContent = wpmEl.textContent;
+    finalAccuracy.textContent = accuracyEl.textContent;
+
+    modal.classList.add("show");
+}
+
+tryAgainBtn.addEventListener("click", () => {
+    modal.classList.remove("show");
+    resetBtn.click();
+});
+
 // 🟢 Load random text
 function loadText() {
-    selectedText = texts[Math.floor(Math.random() * texts.length)];
+    const text = texts[Math.floor(Math.random() * texts.length)];
 
-    textDisplay.innerHTML = selectedText
+    textDisplay.innerHTML = text
         .split("")
         .map(char => `<span>${char}</span>`)
         .join("");
@@ -56,40 +78,38 @@ function updateProgress() {
 
 // 🟢 Start game
 function startGame() {
-    if (isRunning) return;
+    if (gameState !== GAME_STATE.IDLE) return;
 
     timeLeft = Number(timeSelect.value);
     timerEl.textContent = formatTime(timeLeft);
 
-    isRunning = true;
+    gameState = GAME_STATE.RUNNING;
     timeSelect.disabled = true;
 
     timer = setInterval(() => {
-        updateProgress();
         timeLeft--;
 
         timerEl.textContent = formatTime(timeLeft);
+        updateProgress();
 
-        if (timeLeft === 0) {
-            endGame();
-        }
+        if (timeLeft <= 0) endGame();
+
     }, 1000);
 }
 
 timeSelect.addEventListener("change", () => {
-    if (!isRunning) {
+    if (gameState !== GAME_STATE.IDLE) return;
+
         timeLeft = Number(timeSelect.value);
         timerEl.textContent = formatTime(timeLeft);
         updateProgress(); 
-    }
 });
 
 // 🟢 Reset
 resetBtn.addEventListener("click", () => {
     clearInterval(timer);
 
-    isRunning = false;
-    hasStarted = false;
+   gameState = GAME_STATE.IDLE;
    
     timeLeft = Number(timeSelect.value);
     timerEl.textContent = formatTime(timeLeft);
@@ -97,14 +117,17 @@ resetBtn.addEventListener("click", () => {
     input.value = "";
     input.disabled = false;
     input.focus();
+
     timeSelect.disabled = false;
 
    typeHere.classList.remove("type-here-hidden");
 
     wpmEl.textContent = 0;
     charsEl.textContent = 0;
-    accuracyEl.textContent = 0;
+    accuracyEl.textContent = "0%";
     errorsEl.textContent = 0;
+
+    progressBar.style.width = "0%";
 
     loadText();
 });
@@ -112,8 +135,7 @@ resetBtn.addEventListener("click", () => {
 // 🟢 Typing logic
 input.addEventListener("input", () => {
 
-    if (!hasStarted) {
-        hasStarted = true;
+    if (gameState === GAME_STATE.IDLE) {
         startGame();
     }
 
@@ -149,7 +171,7 @@ input.addEventListener("input", () => {
 
     const timePassed = (Number(timeSelect.value) - timeLeft) / 60;
 
-    const wpm = timePassed > 0 ? Math.round((correctChars / 5) / timePassed) : 0;
+    const wpm = timePassed > 0 ? Math.round((correctChars / WORD_LENGTH) / timePassed) : 0;
 
     const accuracy = typed.length === 0 ? 0 : Math.round((correctChars / typed.length) * 100);
 
@@ -163,8 +185,9 @@ input.addEventListener("input", () => {
 
 // 🟢 End game
 function endGame() {
-    isRunning = false;
-    hasStarted = false;
+    gameState = GAME_STATE.FINISHED;
     clearInterval(timer);
     input.disabled = true;
+
+    showResultModal();
 }
